@@ -1,4 +1,5 @@
 const users = require('./users.json');
+const axios = require('axios');
 
 // https://developer.mozilla.org/fr/docs/Learn/JavaScript/Asynchronous/Introducing
 
@@ -37,12 +38,17 @@ function getPhoneNumbers(size) {
 }
 
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function
-async function assignPhoneToUsers() {
-    const results = await getPhoneNumbers(1);
+async function assignPhoneToUsers() {    
     // fill me with the necessary logic to add phone for each users.
+        let numArr = [];
+        for (let i = 0; i < users.length; i++) {
+            const results = await getPhoneNumbers(1);
+            numArr.push(results.contents.phonenumbers[0]);
+        }    
+        let index = 0;
+        return console.log(users.map(user => ({...user, phone: numArr[index++]})));
 }
 
 (async () => {
     await assignPhoneToUsers();
 })();
-
